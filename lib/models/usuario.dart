@@ -1,7 +1,7 @@
 class User {
   String name;
   int age;
-  List<String> jobs;
+  List<String>? jobs;
 
-  User({this.name, this.age, this.jobs});
+  User({required this.name, required this.age, this.jobs});
 }

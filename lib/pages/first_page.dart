@@ -1,4 +1,6 @@
+import 'package:cubit/bloc/user/user_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstPage extends StatelessWidget {
   @override
@@ -7,7 +9,18 @@ class FirstPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Page 1'),
       ),
-      body: UserInfo(),
+      body: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+        if (state is UserInitial) {
+          return Center(
+            child: Text(
+              "No hay información del usuario",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          );
+        } else {
+          return UserInfo();
+        }
+      }),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.accessibility_new),
           onPressed: () => Navigator.pushNamed(context, 'Page2')),
