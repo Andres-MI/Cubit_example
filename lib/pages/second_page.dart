@@ -1,4 +1,7 @@
+import 'package:cubit/bloc/user/user_cubit.dart';
+import 'package:cubit/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecondPage extends StatelessWidget {
   @override
@@ -15,7 +18,14 @@ class SecondPage extends StatelessWidget {
               child: Text('Establecer Usuario',
                   style: TextStyle(color: Colors.white)),
               color: Colors.blue,
-              onPressed: () {}),
+              onPressed: () {
+                final user = User(name: 'Andrés Melenchón', age: 33, jobs: [
+                  'Mobile Developer',
+                  'KGB Double Agent',
+                  'Aspiring Rockstar'
+                ]);
+                context.read<UserCubit>().selectUser(user);
+              }),
           MaterialButton(
               child:
                   Text('Cambiar Edad', style: TextStyle(color: Colors.white)),

@@ -6,3 +6,9 @@ abstract class UserState extends Equatable {
 }
 
 class UserInitial extends UserState {}
+
+class UserActive extends UserState {
+  final User user;
+
+  UserActive(this.user);
+}
