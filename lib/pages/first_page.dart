@@ -1,4 +1,5 @@
 import 'package:cubit/bloc/user/user_cubit.dart';
+import 'package:cubit/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,18 +10,7 @@ class FirstPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Page 1'),
       ),
-      body: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-        if (state is UserInitial) {
-          return Center(
-            child: Text(
-              "No hay información del usuario",
-              style: TextStyle(fontSize: 18.0),
-            ),
-          );
-        } else {
-          return UserInfo();
-        }
-      }),
+      body: BuildBody(),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.accessibility_new),
           onPressed: () => Navigator.pushNamed(context, 'Page2')),
@@ -28,7 +18,35 @@ class FirstPage extends StatelessWidget {
   }
 }
 
+class BuildBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+      ///If a switch statement is preferred must be used state.runtimeType
+      ///and cast the state as the desired inside
+      if (state is UserInitial) {
+        return Center(
+          child: Text("No hay información del usuario",
+              style: TextStyle(fontSize: 18.0)),
+        );
+      } else if (state is UserActive) {
+        return UserInfo(user: state.user);
+      } else {
+        return Center(
+            child: Text(
+          'Ha ocurrido un error',
+          style: TextStyle(fontSize: 18.0),
+        ));
+      }
+    });
+  }
+}
+
 class UserInfo extends StatelessWidget {
+  final User user;
+
+  const UserInfo({super.key, required this.user});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,14 +59,12 @@ class UserInfo extends StatelessWidget {
           Text('General',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
-          ListTile(title: Text('Nombre: ')),
-          ListTile(title: Text('Edad: ')),
+          ListTile(title: Text('Nombre: ${user.name}')),
+          ListTile(title: Text('Edad: ${user.age}')),
           Text('Profesiones',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
-          ListTile(title: Text('Profesion 1')),
-          ListTile(title: Text('Profesion 1')),
-          ListTile(title: Text('Profesion 1')),
+          ...?user.jobs?.map((job) => ListTile(title: Text(job))).toList()
         ],
       ),
     );
