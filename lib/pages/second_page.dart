@@ -30,7 +30,9 @@ class SecondPage extends StatelessWidget {
               child:
                   Text('Cambiar Edad', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
-              onPressed: () {}),
+              onPressed: () {
+                context.read<UserCubit>().changeAge(30);
+              }),
           MaterialButton(
               child: Text('Añadir Profesion',
                   style: TextStyle(color: Colors.white)),

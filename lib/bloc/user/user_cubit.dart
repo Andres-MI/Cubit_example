@@ -10,4 +10,12 @@ class UserCubit extends Cubit<UserState> {
   void selectUser(User user) {
     emit(UserActive(user));
   }
+
+  void changeAge(int age) {
+    final currentState = state;
+    if (currentState is UserActive) {
+      final newUser = currentState.user.copyWith(age: age);
+      emit(UserActive(newUser));
+    }
+  }
 }

@@ -11,4 +11,6 @@ class UserActive extends UserState {
   final User user;
 
   UserActive(this.user);
+  @override
+  List<Object> get props => [user];
 }
