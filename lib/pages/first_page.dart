@@ -9,6 +9,13 @@ class FirstPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Page 1'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<UserCubit>().deleteUser();
+              },
+              icon: Icon(Icons.delete_outline))
+        ],
       ),
       body: BuildBody(),
       floatingActionButton: FloatingActionButton(

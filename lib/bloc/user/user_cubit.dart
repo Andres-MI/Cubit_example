@@ -18,4 +18,20 @@ class UserCubit extends Cubit<UserState> {
       emit(UserActive(newUser));
     }
   }
+
+  void addJob(String job) {
+    final currentState = state;
+    if (currentState is UserActive) {
+      ///Operator spread:
+      //final newJobs =[...?currentState.user.jobs];
+      final List<String> jobs = currentState.user.jobs ?? [];
+      jobs.add(job);
+      final newUser = currentState.user.copyWith(jobs: jobs);
+      emit(UserActive(newUser));
+    }
+  }
+
+  void deleteUser() {
+    emit(UserInitial());
+  }
 }

@@ -37,7 +37,9 @@ class SecondPage extends StatelessWidget {
               child: Text('Añadir Profesion',
                   style: TextStyle(color: Colors.white)),
               color: Colors.blue,
-              onPressed: () {}),
+              onPressed: () {
+                context.read<UserCubit>().addJob('Cubit Expert');
+              }),
         ],
       )),
     );
